@@ -65,3 +65,7 @@ def redirect_url(code: str):
         ExpressionAttributeValues={":inc": 1}
     )
     return RedirectResponse(url=item["url"])
+
+@app.get("/version")
+def version():
+    return {"version": "1.0.0", "service": "url-shortener"}
