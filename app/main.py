@@ -43,6 +43,10 @@ def shorten_url(request: ShortenRequest):
     base_url = os.getenv("BASE_URL", "http://localhost:8000")
     return {"short_url": f"{base_url}/{code}", "code": code}
 
+@app.get("/version")
+def version():
+    return {"version": "1.0.0", "service": "url-shortener"}
+
 @app.get("/stats/{code}")
 def get_stats(code: str):
     table = get_table()
@@ -65,7 +69,3 @@ def redirect_url(code: str):
         ExpressionAttributeValues={":inc": 1}
     )
     return RedirectResponse(url=item["url"])
-
-@app.get("/version")
-def version():
-    return {"version": "1.0.0", "service": "url-shortener"}
